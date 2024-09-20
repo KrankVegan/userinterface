@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
-const StyledButton = styled.button`
+export const ButtonStyle = css`
     background-color: #D7CCC8;
     border:0;
     padding: 5px 15px;
@@ -9,10 +9,16 @@ const StyledButton = styled.button`
     font-size:1rem;
     display:inline-flex;
     align-items: center;
+    text-decoration: none;
 
     svg{
     height: 30px;
     }
+`;
+
+export const StyledButton = styled.button`
+  ${ButtonStyle}
+
 `
 
 export default function Button({children,...rest}) {

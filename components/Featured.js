@@ -1,6 +1,7 @@
 import Center from "./Center";
 import styled from "styled-components";
 import Button from "./Button";
+import ButtonLink from "./ButtonLink";
 
 const Bg = styled.div `
     background-color:#4CAF50 ;
@@ -42,7 +43,7 @@ const ButtonWrapper = styled.div `
 }
 `;
 
-export default function Featured() {
+export default function Featured({product}) {
     return (
       <Bg>
         <Center>
@@ -51,14 +52,13 @@ export default function Featured() {
           <Column>
 
           <div>
-          <Title>Pro anywhere</Title>
-            <Desc>EcoCommerce es 
-            un marketplace en línea que conecta a consumidores conscientes con productos sostenibles.
-            La plataforma permite a los usuarios registrar cuentas, explorar un catálogo de productos ecológicos y realizar compras de manera segura, todo mientras filtran productos por categorías básicas. 
-            El objetivo principal es ofrecer una experiencia de compra simple y eficiente, enfocada en promover la sostenibilidad.</Desc>
+          <Title>{product.title}</Title>
+            <Desc>{product.description}</Desc>
 
             <ButtonWrapper>
-            <Button> Acerca de esto</Button>
+            <ButtonLink href={'products/'+ product._id}> Acerca de este Producto</ButtonLink>
+
+
             <Button> Añadir a Carrito
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
