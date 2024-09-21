@@ -44,12 +44,13 @@ const ProductImageBox = styled.div`
 
 
 export default function CartPage() {
-    const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
+    const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext);
     const [products, setProducts] = useState([]);
     const [name,setName] = useState('');
     const [address,setAddress] = useState('');
     const [city,setCity] = useState('');
     const [email,setEmail] = useState('');
+    const [isSuccess,setIsSuccess] = useState(false);
     
     useEffect(() => {
         if (cartProducts.length > 0) {
@@ -61,6 +62,18 @@ export default function CartPage() {
           setProducts([]);
         }
       }, [cartProducts]);
+
+      useEffect(() => {
+        if (typeof window === 'undefined') {
+          return;
+        }
+        if (window?.location.href.includes('success')) {
+          setIsSuccess(true);
+          clearCart();
+        }
+      }, []);
+    
+
       function moreOfThisProduct(id) {
         addProduct(id);
       }
@@ -78,12 +91,28 @@ export default function CartPage() {
         }
       }
 
-
     let total = 0;
     for(const productId of cartProducts) {
         const price = products.find(p => p._id === productId)?.price || 0;
         total += price;
     }
+
+    if (isSuccess) {
+      return (
+        <>
+          <Header />
+          <Center>
+            <ColumnsWrapper>
+              <Box>
+                <h1>Gracias por tu compra!</h1>
+                <p>Haz ayudado al medio ambiente con tu compra :).</p>
+              </Box>
+            </ColumnsWrapper>
+          </Center>
+        </>
+      );
+    }
+
   return (
     <>
       <Header />
