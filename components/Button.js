@@ -18,7 +18,7 @@ export const ButtonStyle = css`
 export const StyledButton = styled.button`
   ${ButtonStyle}
 
-`
+`;
 
 export default function Button({children,...rest}) {
     return (
