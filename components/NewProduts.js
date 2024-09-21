@@ -14,7 +14,7 @@ export default function NewProducts ({products}) {
         <Center>
         <h2>Productos Mas Nuevos</h2>
         <ProductsGrid>
-            {products?.length > 0 && products.map(product => (<ProductBox {...product}/>))}
+            {products?.length > 0 && products.map(product => (<ProductBox key={product.id} {...product}/>))}
         </ProductsGrid>
         </Center>
     );
