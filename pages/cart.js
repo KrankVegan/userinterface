@@ -135,11 +135,14 @@ export default function CartPage() {
             {!!cartProducts?.length && (
                 <Box>
                     <h2>Informacion de Pedido</h2>
-                    <Input type="text" placeholder="Dirección" value={address} onChange={ev => setAddress(ev.target.value)}/>
-                    <Input type="text" placeholder="Nombre" value={name} onChange={ev => setName(ev.target.value)}/>
-                    <Input type="text" placeholder="Ciudad" value={city} onChange={ev => setCity(ev.target.value)}/>
-                    <Input type="text" placeholder="Email" value={email} onChange={ev => setEmail(ev.target.value)}/>                    
-                    <Button type="submit">Accion de Pago</Button>
+                    <form method="post" action="/api/checkout">
+                        <Input type="text" name="address" placeholder="Dirección" value={address} onChange={ev => setAddress(ev.target.value)}/>
+                        <Input type="text" name="name" placeholder="Nombre" value={name} onChange={ev => setName(ev.target.value)}/>
+                        <Input type="text" name="city" placeholder="Ciudad" value={city} onChange={ev => setCity(ev.target.value)}/>
+                        <Input type="text" name="email" placeholder="Email" value={email} onChange={ev => setEmail(ev.target.value)}/>                    
+                        <Button type="submit">Accion de Pago</Button>
+                        <input name="products" type="hidden" value={cartProducts.join(',')}></input>
+                    </form>
                 </Box>
                 )}
         </ColumnsWrapper>
