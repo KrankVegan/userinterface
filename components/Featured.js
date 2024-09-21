@@ -4,7 +4,7 @@ import Button from "./Button";
 import ButtonLink from "./ButtonLink";
 
 const Bg = styled.div `
-    background-color:#4CAF50 ;
+    background-color:#5CBF60  ;
     color:#fff;
     padding: 50px 0;
     `;

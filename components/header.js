@@ -1,6 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Center from "./Center";
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 const StyledHeader = styled.header `
   padding: 10px;
@@ -30,20 +32,21 @@ text-decoration:none;
 `;
 
 export default function Header() {
+    const {cartProducts} = useContext(CartContext);
     return (
-        <StyledHeader>
-            <Center>
-            <Wrapper>
-            <Logo href={'/'}> Eco-Ecommerce</Logo>
-                <StyledNav>
-                    <NavLink href={'/'}>Home</NavLink>
-                    <NavLink href={'/products'}>Todos los productos</NavLink>
-                    <NavLink href={'categories'} >Categorias</NavLink>
-                    <NavLink href={'account'}>Cuenta</NavLink>
-                    <NavLink href={'cart'}>Carrito (0)</NavLink>
-                </StyledNav>
-            </Wrapper>
-            </Center>
-        </StyledHeader>
-    )
-}
+      <StyledHeader>
+        <Center>
+          <Wrapper>
+            <Logo href={'/'}>Ecommerce</Logo>
+            <StyledNav>
+              <NavLink href={'/'}>Home</NavLink>
+              <NavLink href={'/products'}>All products</NavLink>
+              <NavLink href={'/categories'}>Categories</NavLink>
+              <NavLink href={'/account'}>Account</NavLink>
+              <NavLink href={'/cart'}>Cart (0)</NavLink>
+            </StyledNav>
+          </Wrapper>
+        </Center>
+      </StyledHeader>
+    );
+  }
