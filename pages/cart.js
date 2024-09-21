@@ -46,7 +46,6 @@ const ProductImageBox = styled.div`
 export default function CartPage() {
     const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
     const [products, setProducts] = useState([]);
-
     const [name,setName] = useState('');
     const [address,setAddress] = useState('');
     const [city,setCity] = useState('');
@@ -62,21 +61,23 @@ export default function CartPage() {
           setProducts([]);
         }
       }, [cartProducts]);
-      useEffect(() => {
-        if (typeof window === 'undefined') {
-          return;
-        }
-        if (window?.location.href.includes('success')) {
-          setIsSuccess(true);
-          clearCart();
-        }
-      }, []);
       function moreOfThisProduct(id) {
         addProduct(id);
       }
       function lessOfThisProduct(id) {
         removeProduct(id);
       }
+
+      async function goToPayment() {
+        const response = await axios.post('/api/checkout', {
+          name,email,city,address,
+          cartProducts,
+        });
+        if (response.data.url) {
+          window.location = response.data.url;
+        }
+      }
+
 
     let total = 0;
     for(const productId of cartProducts) {
@@ -135,14 +136,12 @@ export default function CartPage() {
             {!!cartProducts?.length && (
                 <Box>
                     <h2>Informacion de Pedido</h2>
-                    <form method="post" action="/api/checkout">
+                    
                         <Input type="text" name="address" placeholder="Dirección" value={address} onChange={ev => setAddress(ev.target.value)}/>
                         <Input type="text" name="name" placeholder="Nombre" value={name} onChange={ev => setName(ev.target.value)}/>
                         <Input type="text" name="city" placeholder="Ciudad" value={city} onChange={ev => setCity(ev.target.value)}/>
                         <Input type="text" name="email" placeholder="Email" value={email} onChange={ev => setEmail(ev.target.value)}/>                    
-                        <Button type="submit">Accion de Pago</Button>
-                        <input name="products" type="hidden" value={cartProducts.join(',')}></input>
-                    </form>
+                        <Button type="submit" onClick={goToPayment}>Accion de Pago</Button>
                 </Box>
                 )}
         </ColumnsWrapper>
