@@ -23,7 +23,7 @@ const Wrapper = styled.div `
 
 const StyledNav = styled.nav`
     display: flex;
-    gap: 10px;
+    gap: 30px;
 `;
 
 const NavLink = styled(Link) `
@@ -37,12 +37,10 @@ export default function Header() {
       <StyledHeader>
         <Center>
           <Wrapper>
-            <Logo href={'/'}>Ecommerce</Logo>
+            <Logo href={'/'}>Eco-Ecommerce</Logo>
             <StyledNav>
               <NavLink href={'/'}>Home</NavLink>
               <NavLink href={'/products'}>Productos</NavLink>
-              <NavLink href={'/categories'}>Categorias</NavLink>
-              <NavLink href={'/account'}>Cuenta</NavLink>
               <NavLink href={'/cart'}>Carrito ({cartProducts.length})</NavLink>
             </StyledNav>
           </Wrapper>

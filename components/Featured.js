@@ -62,7 +62,7 @@ export default function Featured({product}) {
             <Desc>{product.description}</Desc>
 
             <ButtonWrapper>
-            <ButtonLink href={'products/'+ product._id}> Acerca de este Producto</ButtonLink>
+            <ButtonLink href={'products/66eb5faa81f096f5e100f850'}> Acerca de este Producto</ButtonLink>
 
 
             <Button onClick={addFeaturedToCart}> Añadir a Carrito
