@@ -6,7 +6,7 @@ import Table from "@/components/Table";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import Input from "@/components/Input";
+import Input from "@/components/Input"; 
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -44,21 +44,39 @@ const ProductImageBox = styled.div`
 
 
 export default function CartPage() {
-    const {cartProducts} = useContext(CartContext);
+    const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
     const [products, setProducts] = useState([]);
 
     const [name,setName] = useState('');
     const [address,setAddress] = useState('');
     const [city,setCity] = useState('');
     const [email,setEmail] = useState('');
+    
     useEffect(() => {
-        if(cartProducts.length > 0) {
-            axios.post('api/cart', {ids:cartProducts})
-            .then(responde => {
-                setProducts(responde.data);
+        if (cartProducts.length > 0) {
+          axios.post('/api/cart', {ids:cartProducts})
+            .then(response => {
+              setProducts(response.data);
             })
+        } else {
+          setProducts([]);
         }
-    }, [cartProducts])
+      }, [cartProducts]);
+      useEffect(() => {
+        if (typeof window === 'undefined') {
+          return;
+        }
+        if (window?.location.href.includes('success')) {
+          setIsSuccess(true);
+          clearCart();
+        }
+      }, []);
+      function moreOfThisProduct(id) {
+        addProduct(id);
+      }
+      function lessOfThisProduct(id) {
+        removeProduct(id);
+      }
 
     let total = 0;
     for(const productId of cartProducts) {
@@ -89,11 +107,18 @@ export default function CartPage() {
                                 <tr>
                                     <ProductInfoCell>
                                         <ProductImageBox>
-                                            <img src={product.images[0]} alt=""/>
+                                            <img src={product.images[0]} alt=""/> 
                                         </ProductImageBox>
                                         {product.title}
                                     </ProductInfoCell>
-                                    <td>{cartProducts.filter(id => id === product._id).length}</td>
+                                    <td>
+                                        <button 
+                                        onClick={() => lessOfThisProduct(product._id)}>-</button>
+                                        {cartProducts.filter(id => id === product._id).length}
+                                        <button 
+                                        onClick={() => moreOfThisProduct(product._id)}
+                                        >+</button>
+                                    </td> 
                                     <td>${cartProducts.filter(id => id === product._id).length * product.price}</td>
                                     
                                 </tr>
